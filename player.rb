@@ -6,8 +6,11 @@ class CptnRuby
     @dir = :left
     @vy = 0
     @map = window.map
-    @standing, @walk1, @walk2, @jump =
-      *Image.load_tiles(window, "media/CptnRuby.png", 50, 50, false)
+    @bowser_run = Image.load_tiles(window, "media/bowserRun.png", 70, 70, false)
+    @bowser_jump = Image.load_tiles(window, "media/bowserJump.png", 72, 70, false)
+    @standing = Image.new(window, "media/bowserStand.png", false)
+    # @standing, @walk1, @walk2, @jump =
+      # *Image.load_tiles(window, "media/CptnRuby.png", 50, 50, false)
     @cur_image = @standing
   end
 
@@ -19,31 +22,31 @@ class CptnRuby
       offs_x = 25
       factor = -1.0
     end
-    @cur_image.draw(@x + offs_x, @y - 49, 0, factor, 1.0)
+    @cur_image.draw(@x + offs_x, @y - 69, 0, factor, 1.0)
   end
 
   def would_fit(offs_x, offs_y)
     not @map.solid?(@x + offs_x, y + offs_y) and
-      not @map.solid?(@x + offs_x, @y + offs_y - 45)
+      not @map.solid?(@x + offs_x, @y + offs_y - 69)
   end
 
   def update(move_x)
     if move_x == 0
       @cur_image = @standing
     else
-      @cur_image = (milliseconds / 175 % 2 == 0) ? @walk1 : @walk2
+      @cur_image = @bowser_run[((milliseconds / 100) % @bowser_run.size)]
     end
     if @vy < 0
-      @cur_image = @jump
+      @cur_image = @bowser_jump[((milliseconds / 200) % @bowser_jump.size)]
     end
 
     if move_x > 0 then
       @dir = :right
-      move_x.times { if would_fit(1,0) then @x += 1 end }
+      move_x.times { if would_fit(20,0) then @x += 1 end }
     end
     if move_x < 0 then
       @dir = :left
-      (-move_x).times { if would_fit(-1, 0) then @x -= 1 end }
+      (-move_x).times { if would_fit(-20, 0) then @x -= 1 end }
     end
     @vy += 1
     if @vy > 0 then
