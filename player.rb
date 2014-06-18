@@ -1,6 +1,5 @@
 class Player
-  def initialize(window)
+  def initialize
 
-    @x = @y = 0
   end
 end
