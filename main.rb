@@ -1,9 +1,9 @@
 require 'gosu'
 require_relative 'player'
 require_relative 'map'
+require_relative 'collectiblegem'
 
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 1024
+
 
 class Main < Gosu::Window
   attr_reader :map
