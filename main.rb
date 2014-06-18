@@ -1,11 +1,16 @@
 require 'gosu'
+require 'rubygems'
 require_relative 'player'
 require_relative 'map'
 require_relative 'collectiblegem'
+include Gosu
 
+module Tiles
+  Grass = 0
+  Earth = 1
+end
 
-
-class Main < Gosu::Window
+class Main < Window
   attr_reader :map
 
   def initialize
@@ -13,14 +18,14 @@ class Main < Gosu::Window
     self.caption = "DBZ"
     @sky = Image.new(self, "media/Space.png", true)
     @map = Map.new(self, "media/map.txt")
-    @cptn = CptnRuby.new(self, 400, 400)
+    @cptn = CptnRuby.new(self, 400, 100)
     @camera_x = @camera_y = 0
   end
 
   def update
     move_x = 0
-    move_x -= 5 if button_down? KbLeft
-    move_x += 5 if button_down? KbRight
+    move_x -= 5 if button_down? KbA
+    move_x += 5 if button_down? KbD
     @cptn.update(move_x)
     @cptn.collect_gems(@map.gems)
     @camera_x = [[@cptn.x - 320, 0].max, @map.width * 50 - 640].min
@@ -36,8 +41,9 @@ class Main < Gosu::Window
   end
 
   def button_down(id)
-    if id == KbUp then @cptn.try_to_jump end
-    if id == KBEscape then close end
+    if id == KbSpace then @cptn.try_to_jump end
+    if id == KbEscape then close end
+  end
 end
 
 Main.new.show
