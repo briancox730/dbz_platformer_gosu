@@ -42,4 +42,8 @@ class Map
   def solid?(x, y)
     y < 0 || @tiles[x/50][y/50]
   end
+
+  # def solid_x?(x, y)
+  #   x < 0 || @tiles[x/50][y/50]
+  # end
 end
