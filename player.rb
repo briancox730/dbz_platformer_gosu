@@ -6,7 +6,7 @@ class CptnRuby
     @dir = :left
     @vy = @vx = 0
     @map = window.map
-    @bowser_slide = Image.load_tiles(window, "media/bowserSlide.png", 99, 70, false)
+    @bowser_slide = Image.load_tiles(window, "media/bowserSlide.png", 70, 70, false)
     @bowser_run = Image.load_tiles(window, "media/bowserRun.png", 70, 70, false)
     @bowser_jump = Image.load_tiles(window, "media/bowserJump.png", 72, 70, false)
     @standing = Image.new(window, "media/bowserStand.png", false)
